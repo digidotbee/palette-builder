@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { Title } from './Title';
@@ -14,17 +14,12 @@ const App = () => {
   const [paletteFull, setPaletteFull] = useState(false)
   const [data, setData] = useState(null);
 
-  const handlePickColour = async v => {
+  const handlePickColour = v => {
       if (colours.length + 1 > paletteLimit) {
         setPaletteFull(true);
         return;
       }
-      try {
-      const data = await readColour(v);
-      await setColours(colours => [...colours, {hex: v, name: data.name.value}]);
-      } catch(e) {
-        console.error(e);
-      }
+      setColours(colours => [...colours, v]);
   }
 
   const handleReset = () => {
