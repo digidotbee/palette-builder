@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { Title } from './Title';
 import { Palette } from './Palette';
 import { ColourPicker } from './ColourPicker';
+import { readColour } from './api';
 
 const defaultOthers = [];
 const paletteLimit = 4;
@@ -11,13 +12,19 @@ const paletteLimit = 4;
 const App = () => {
   const [colours, setColours] = useState(defaultOthers);
   const [paletteFull, setPaletteFull] = useState(false)
+  const [data, setData] = useState(null);
 
-  const handlePickColour = v => {
+  const handlePickColour = async v => {
       if (colours.length + 1 > paletteLimit) {
         setPaletteFull(true);
         return;
       }
-      setColours(colours => [...colours, v]);
+      try {
+      const data = await readColour(v);
+      await setColours(colours => [...colours, {hex: v, name: data.name.value}]);
+      } catch(e) {
+        console.error(e);
+      }
   }
 
   const handleReset = () => {
