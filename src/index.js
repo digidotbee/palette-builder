@@ -5,50 +5,40 @@ import { Title } from './Title';
 import { Palette } from './Palette';
 import { ColourPicker } from './ColourPicker';
 
-const defaultPrimary = 'transparent';
 const defaultOthers = [];
-const paletteLimit = 2;
+const paletteLimit = 4;
 
 const App = () => {
-  const [primary, setPrimary] = useState(defaultPrimary);
-  const [others, setOthers] = useState(defaultOthers);
-  const [mode, setMode] = useState('primary');
+  const [colours, setColours] = useState(defaultOthers);
   const [paletteFull, setPaletteFull] = useState(false)
 
   const handlePickColour = v => {
-    if (v.mode === 'primary') {
-      setPrimary(v.value);
-      setMode('others');
-    } else {
-      setOthers(others => [...others, v.value]);
-      if (others.length >= paletteLimit) {
+      if (colours.length + 1 > paletteLimit) {
         setPaletteFull(true);
+        return;
       }
-    }
+      setColours(colours => [...colours, v]);
   }
 
   const handleReset = () => {
-    setPrimary(defaultPrimary);
-    setOthers(defaultOthers);
-    setMode('primary');
+    setColours(defaultOthers);
     setPaletteFull(false)
   }
   
 
   const handleCopy = () => {
-    navigator.clipboard.writeText([primary, ...others].join(','))
+    navigator.clipboard.writeText(colours.join(','))
       .then(handleReset);
   }
 
   return (
     <div>
       <Title>Cool palette builder</Title>
-      <Palette primary={primary} others={others} />
+      <Palette colours={colours} />
       <ColourPicker 
         disabled={paletteFull} 
         onReset={handleReset} 
         onPickColour={handlePickColour} 
-        mode={mode}
         handleCopy={handleCopy}
       />
     </div> 

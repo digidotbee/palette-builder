@@ -6,11 +6,11 @@
   margin-bottom: 18.7667px;
 }
 
-.primary {
-  width: 40%;
+.colour {
   height: 100%;
+  flex: 1;
 }
 
-.other {
-  height: 100%;
+.colour:first-of-type {
+  flex: 2;
 }

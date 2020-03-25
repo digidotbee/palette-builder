@@ -6,14 +6,14 @@ import {GithubPicker} from 'react-color';
 const defaultColour = '#fff'
 
 // mode = primary or other
-export const ColourPicker = ({onPickColour, mode = 'primary', onReset, disabled, handleCopy}) => {
+export const ColourPicker = ({onPickColour, onReset, disabled, handleCopy}) => {
   const [showPicker, setShowPicker ] = useState(false);
   const [colour, setColour] = useState(defaultColour);
 
   const handleClick = () => setShowPicker(v => !v);
   const handlePickColour = c => {
     setColour(c.hex);
-    onPickColour({mode: mode, value: c.hex});
+    onPickColour(c.hex);
     setShowPicker(false);
     setColour(defaultColour);
   }
@@ -25,7 +25,7 @@ export const ColourPicker = ({onPickColour, mode = 'primary', onReset, disabled,
       {disabled 
         ? <button className="save colour-picker" onClick={handleCopy}>Copy</button> 
         : <button disabled={disabled} type="button" className="colour-picker" onClick={handleClick}>
-            {`Choose ${mode === 'primary' ? 'primary' : 'other'} colour`}
+            {`Choose colour`}
           </button>
       }
       <button type="button" className="reset" onClick={onReset}>Reset</button>
