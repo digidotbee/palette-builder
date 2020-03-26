@@ -1,7 +1,9 @@
 {
   "author": "Drew Larson <me@drewlarson.ca>",
   "description": "A fun app to build palettes",
-  "engines": {"node": "8.16.x"},
+  "engines": {
+    "node": "8.16.x"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/drwlrsn/palette-builder/issues",
@@ -17,7 +19,7 @@
     "react": "^16.13.0",
     "react-color": "^2.18.0",
     "react-dom": "^16.13.0",
-    "react-scripts": "3.4.0"
+    "react-scripts": "3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
